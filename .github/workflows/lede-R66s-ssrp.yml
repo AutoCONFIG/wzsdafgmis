@@ -74,7 +74,6 @@ jobs:
           # CONFIG_PACKAGE_coremark is not set
           CONFIG_PACKAGE_ipv6helper=y
           # CONFIG_PACKAGE_luci-app-accesscontrol is not set
-          CONFIG_PACKAGE_luci-app-ddns=y
           CONFIG_PACKAGE_luci-app-nfs=y
           # CONFIG_PACKAGE_luci-app-nlbwmon is not set
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-ng is not set
