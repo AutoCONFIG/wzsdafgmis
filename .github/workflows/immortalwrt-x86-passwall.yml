@@ -51,7 +51,7 @@ jobs:
       - name: Clone source
         run: |
           rm -rf .git/ .github/ *
-          git clone --depth=1 --branch=openwrt-23.05 https://github.com/immortalwrt/immortalwrt.git ./
+          git clone --depth=1 --branch=master https://github.com/immortalwrt/immortalwrt.git ./
           git clone --depth=1 --branch=main https://github.com/AutoCONFIG/minieap-openwrt.git package/minieap-openwrt
           git clone --depth=1 --branch=HustLion https://github.com/AutoCONFIG/mentohust-openwrt.git package/mentohust-openwrt
 
