@@ -5,7 +5,7 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: immortalwrt-23.05-R66s-clash-home
+name: lede-R66s-clash-home
 
 on:
   push:
@@ -49,17 +49,14 @@ jobs:
       - name: Clone source
         run: |
           rm -rf .git/ .github/ *
-          git clone --depth=1 --branch=openwrt-23.05 https://github.com/immortalwrt/immortalwrt.git ./
-          git clone --depth=1 --branch=master https://github.com/immortalwrt/luci.git tmp/y-y/luci
+          git clone --depth=1 https://github.com/coolsnowwolf/lede.git ./
+          git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
           git clone --depth=1 --branch=main https://github.com/AutoCONFIG/minieap-openwrt.git package/minieap-openwrt
           git clone --depth=1 --branch=HustLion https://github.com/AutoCONFIG/mentohust-openwrt.git package/mentohust-openwrt
-          mv tmp/y-y/luci/applications/luci-app-filebrowser-go/ package/ && rm -rf tmp/y-y/
+          mv package/OpenClash/luci-app-openclash package/luci-app-openclash && rm -rf package/OpenClash/ package/lean/mentohust/
 
       - name: Update feeds
         run: |
-          ./scripts/feeds update -a
-          mv tmp/y-y/luci/applications/luci-app-filebrowser-go/ feeds/luci/applications/ 
-          rm -rf feeds/packages/net/mentohust/ feeds/packages/net/minieap/ tmp/y-y/
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
@@ -71,20 +68,24 @@ jobs:
           cat >> .config <<EOF
           CONFIG_TARGET_rockchip=y
           CONFIG_TARGET_rockchip_armv8=y
-          CONFIG_TARGET_rockchip_armv8_DEVICE_lunzn_fastrhino-r66s=y
-          CONFIG_PACKAGE_autosamba=y
-          CONFIG_PACKAGE_luci-app-arpbind=y
-          CONFIG_PACKAGE_luci-app-autoreboot=y
-          CONFIG_PACKAGE_luci-app-ddns-go=y
-          # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_btrfs_progs is not set
-          # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_lsblk is not set
-          CONFIG_PACKAGE_luci-app-filebrowser-go=y
-          CONFIG_PACKAGE_luci-app-nfs=y
+          CONFIG_TARGET_rockchip_armv8_DEVICE_fastrhino_r66s=y
+          # CONFIG_PACKAGE_coremark is not set
+          # CONFIG_PACKAGE_ddns-scripts is not set
+          # CONFIG_PACKAGE_ddns-scripts_aliyun is not set
+          # CONFIG_PACKAGE_ddns-scripts_dnspod is not set
+          CONFIG_PACKAGE_ipv6helper=y
+          # CONFIG_PACKAGE_luci-app-accesscontrol is not set
+          # CONFIG_PACKAGE_luci-app-ddns is not set
+          # CONFIG_PACKAGE_luci-app-nlbwmon is not set
           CONFIG_PACKAGE_luci-app-openclash=y
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-ng is not set
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
-          CONFIG_PACKAGE_luci-app-upnp=y
-          CONFIG_PACKAGE_luci-app-vlmcsd=y
+          # CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_BBR_CCA is not set
+          # CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_OFFLOADING is not set
+          # CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_PDNSD is not set
+          # CONFIG_PACKAGE_luci-app-unblockmusic_INCLUDE_UnblockNeteaseMusic_Go is not set
+          # CONFIG_PACKAGE_luci-app-vsftpd is not set
+          # CONFIG_PACKAGE_luci-app-wol is not set
           CONFIG_TARGET_ROOTFS_PARTSIZE=512
           EOF
 
