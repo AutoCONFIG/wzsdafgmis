@@ -51,9 +51,7 @@ jobs:
           rm -rf .git/ .github/ *
           git clone --depth=1 https://github.com/coolsnowwolf/lede.git ./
           git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
-          git clone --depth=1 --branch=main https://github.com/AutoCONFIG/minieap-openwrt.git package/minieap-openwrt
-          git clone --depth=1 --branch=HustLion https://github.com/AutoCONFIG/mentohust-openwrt.git package/mentohust-openwrt
-          mv package/OpenClash/luci-app-openclash package/luci-app-openclash && rm -rf package/OpenClash/ package/lean/mentohust/
+          mv package/OpenClash/luci-app-openclash package/luci-app-openclash && rm -rf package/OpenClash/
 
       - name: Update feeds
         run: |
