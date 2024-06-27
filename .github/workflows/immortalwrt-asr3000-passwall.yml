@@ -189,14 +189,17 @@ jobs:
           CONFIG_OPENSSL_WITH_NPN=y
           # CONFIG_PACKAGE_TURBOACC_INCLUDE_FLOW_OFFLOADING is not set
           CONFIG_PACKAGE_TURBOACC_INCLUDE_NO_FASTPATH=y
-          CONFIG_PACKAGE_bash=y
           CONFIG_PACKAGE_blockd=y
           CONFIG_PACKAGE_ca-certificates=y
+          CONFIG_PACKAGE_chinadns-ng=y
           CONFIG_PACKAGE_coreutils=y
+          CONFIG_PACKAGE_coreutils-base64=y
           CONFIG_PACKAGE_coreutils-nohup=y
           CONFIG_PACKAGE_curl=y
           CONFIG_PACKAGE_datconf=y
           CONFIG_PACKAGE_datconf-lua=y
+          CONFIG_PACKAGE_dns2socks=y
+          CONFIG_PACKAGE_dns2tcp=y
           CONFIG_PACKAGE_ebtables=y
           CONFIG_PACKAGE_ethtool=y
           CONFIG_PACKAGE_htop=y
@@ -204,6 +207,7 @@ jobs:
           CONFIG_PACKAGE_ip-full=y
           CONFIG_PACKAGE_ip6tables-extra=y
           CONFIG_PACKAGE_ipset=y
+          CONFIG_PACKAGE_ipt2socks=y
           CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
           CONFIG_PACKAGE_iptables-mod-extra=y
           CONFIG_PACKAGE_iptables-mod-filter=y
@@ -282,13 +286,9 @@ jobs:
           CONFIG_PACKAGE_libatomic=y
           CONFIG_PACKAGE_libblkid=y
           CONFIG_PACKAGE_libbpf=y
-          CONFIG_PACKAGE_libcap=y
-          CONFIG_PACKAGE_libcap-bin=y
-          CONFIG_PACKAGE_libcap-bin-capsh-shell="/bin/sh"
           CONFIG_PACKAGE_libcap-ng=y
           CONFIG_PACKAGE_libcbor=y
           CONFIG_PACKAGE_libcurl=y
-          CONFIG_PACKAGE_libdb47=y
           CONFIG_PACKAGE_libelf=y
           CONFIG_PACKAGE_libevdev=y
           CONFIG_PACKAGE_libfido2=y
@@ -304,17 +304,15 @@ jobs:
           CONFIG_PACKAGE_libopenssl-afalg_sync=y
           CONFIG_PACKAGE_libopenssl-devcrypto=y
           CONFIG_PACKAGE_libpcap=y
-          CONFIG_PACKAGE_libreadline=y
-          CONFIG_PACKAGE_libruby=y
           CONFIG_PACKAGE_libstdcpp=y
+          CONFIG_PACKAGE_libuci-lua=y
           CONFIG_PACKAGE_libudev-zero=y
           CONFIG_PACKAGE_libuuid=y
-          CONFIG_PACKAGE_libyaml=y
           CONFIG_PACKAGE_lua-cjson=y
-          CONFIG_PACKAGE_luci-app-arpbind=y
           CONFIG_PACKAGE_luci-app-autoreboot=y
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_btrfs_progs is not set
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_lsblk is not set
+          # CONFIG_PACKAGE_luci-app-filetransfer is not set
           CONFIG_PACKAGE_luci-app-mtwifi-cfg=y
           CONFIG_PACKAGE_luci-app-passwall=y
           # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Haproxy is not set
@@ -345,12 +343,13 @@ jobs:
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_Trojan is not set
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_Xray is not set
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_Xray_plugin is not set
-          CONFIG_PACKAGE_luci-i18n-arpbind-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-autoreboot-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-mtwifi-cfg-zh-cn=y
+          CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-turboacc-mtk-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-vlmcsd-zh-cn=y
+          CONFIG_PACKAGE_microsocks=y
           CONFIG_PACKAGE_mii_mgr=y
           CONFIG_PACKAGE_miniupnpd=y
           CONFIG_PACKAGE_mtkhqos_util=y
@@ -361,23 +360,12 @@ jobs:
           CONFIG_PACKAGE_openssl-util=y
           CONFIG_PACKAGE_regs=y
           CONFIG_PACKAGE_resolveip=y
-          CONFIG_PACKAGE_ruby=y
-          CONFIG_PACKAGE_ruby-bigdecimal=y
-          CONFIG_PACKAGE_ruby-date=y
-          CONFIG_PACKAGE_ruby-dbm=y
-          CONFIG_PACKAGE_ruby-digest=y
-          CONFIG_PACKAGE_ruby-enc=y
-          CONFIG_PACKAGE_ruby-forwardable=y
-          CONFIG_PACKAGE_ruby-pstore=y
-          CONFIG_PACKAGE_ruby-psych=y
-          CONFIG_PACKAGE_ruby-stringio=y
-          CONFIG_PACKAGE_ruby-strscan=y
-          CONFIG_PACKAGE_ruby-yaml=y
           CONFIG_PACKAGE_swconfig=y
           CONFIG_PACKAGE_switch=y
           CONFIG_PACKAGE_tc-mod-iptables=y
           CONFIG_PACKAGE_tc-tiny=y
           CONFIG_PACKAGE_tcpdump=y
+          CONFIG_PACKAGE_tcping=y
           CONFIG_PACKAGE_terminfo=y
           CONFIG_PACKAGE_unzip=y
           CONFIG_PACKAGE_vlmcsd=y
