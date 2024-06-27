@@ -50,9 +50,13 @@ jobs:
         run: |
           rm -rf .git/ .github/ *
           git clone --depth=1 --branch=openwrt-21.02 https://github.com/hanwckf/immortalwrt-mt798x.git ./
+          git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+          mv package/OpenClash/luci-app-openclash package/luci-app-openclash && rm -rf package/OpenClash/
 
       - name: Update feeds
         run: |
+          ./scripts/feeds update -a
+          rm -rf feeds/luci/applications/luci-app-openclash
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 

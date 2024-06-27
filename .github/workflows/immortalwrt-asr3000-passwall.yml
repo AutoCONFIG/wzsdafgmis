@@ -50,9 +50,13 @@ jobs:
         run: |
           rm -rf .git/ .github/ *
           git clone --depth=1 --branch=openwrt-21.02 https://github.com/hanwckf/immortalwrt-mt798x.git ./
+          git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
+          git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/openwrt-passwall-packages
 
       - name: Update feeds
         run: |
+          ./scripts/feeds update -a
+          rm -rf feeds/luci/applications/luci-app-passwall
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
