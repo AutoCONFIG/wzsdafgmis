@@ -311,10 +311,10 @@ jobs:
           CONFIG_PACKAGE_libuuid=y
           CONFIG_PACKAGE_libyaml=y
           CONFIG_PACKAGE_lua-cjson=y
-          CONFIG_PACKAGE_luci-app-arpbind=y
           CONFIG_PACKAGE_luci-app-autoreboot=y
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_btrfs_progs is not set
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_lsblk is not set
+          # CONFIG_PACKAGE_luci-app-filetransfer is not set
           CONFIG_PACKAGE_luci-app-mtwifi-cfg=y
           CONFIG_PACKAGE_luci-app-openclash=y
           # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Haproxy is not set
@@ -345,7 +345,6 @@ jobs:
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_Trojan is not set
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_Xray is not set
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_Xray_plugin is not set
-          CONFIG_PACKAGE_luci-i18n-arpbind-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-autoreboot-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-mtwifi-cfg-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-turboacc-mtk-zh-cn=y
