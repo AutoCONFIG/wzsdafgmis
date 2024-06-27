@@ -279,7 +279,6 @@ jobs:
           CONFIG_PACKAGE_kmod-lib-lzo=y
           CONFIG_PACKAGE_kmod-mediatek_hnat=y
           CONFIG_PACKAGE_kmod-mt_wifi=y
-          CONFIG_PACKAGE_kmod-netlink-diag=y
           CONFIG_PACKAGE_kmod-nf-flow=y
           CONFIG_PACKAGE_kmod-nls-base=y
           CONFIG_PACKAGE_kmod-nls-cp437=y
@@ -324,7 +323,6 @@ jobs:
           # CONFIG_PACKAGE_luci-app-filetransfer is not set
           CONFIG_PACKAGE_luci-app-mtwifi-cfg=y
           CONFIG_PACKAGE_luci-app-passwall=y
-          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_SingBox=y
           CONFIG_PACKAGE_luci-app-passwall_Iptables_Transparent_Proxy=y
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-ng is not set
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
@@ -361,7 +359,6 @@ jobs:
           CONFIG_PACKAGE_openssl-util=y
           CONFIG_PACKAGE_regs=y
           CONFIG_PACKAGE_resolveip=y
-          CONFIG_PACKAGE_sing-box=y
           CONFIG_PACKAGE_swconfig=y
           CONFIG_PACKAGE_switch=y
           CONFIG_PACKAGE_tc-mod-iptables=y
@@ -377,13 +374,6 @@ jobs:
           # CONFIG_PKG_CHECK_FORMAT_SECURITY is not set
           # CONFIG_PKG_FORTIFY_SOURCE_1 is not set
           CONFIG_PKG_FORTIFY_SOURCE_2=y
-          CONFIG_SING_BOX_WITH_CLASH_API=y
-          CONFIG_SING_BOX_WITH_DHCP=y
-          CONFIG_SING_BOX_WITH_ECH=y
-          CONFIG_SING_BOX_WITH_GVISOR=y
-          CONFIG_SING_BOX_WITH_QUIC=y
-          CONFIG_SING_BOX_WITH_UTLS=y
-          CONFIG_SING_BOX_WITH_WIREGUARD=y
           CONFIG_WARP_CHIPSET="mt7981"
           CONFIG_WARP_DBG_SUPPORT=y
           CONFIG_WARP_VERSION=2
@@ -403,6 +393,7 @@ jobs:
           # CONFIG_MTK_SNIFFER_RADIOTAP_SUPPORT is not set
           # CONFIG_PACKAGE_boost is not set
           # CONFIG_PACKAGE_haproxy is not set
+          # CONFIG_PACKAGE_kmod-netlink-diag is not set
           # CONFIG_PACKAGE_libcares is not set
           # CONFIG_PACKAGE_libev is not set
           # CONFIG_PACKAGE_libltdl is not set
@@ -418,6 +409,7 @@ jobs:
           # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server is not set
           # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client is not set
           # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Simple_Obfs is not set
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_SingBox is not set
           # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan_Plus is not set
           # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray_Plugin is not set
           # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray is not set
@@ -429,6 +421,7 @@ jobs:
           # CONFIG_PACKAGE_shadowsocksr-libev-ssr-local is not set
           # CONFIG_PACKAGE_shadowsocksr-libev-ssr-redir is not set
           # CONFIG_PACKAGE_simple-obfs is not set
+          # CONFIG_PACKAGE_sing-box is not set
           # CONFIG_PACKAGE_trojan-plus is not set
           # CONFIG_PACKAGE_unzip is not set
           # CONFIG_PACKAGE_v2ray-plugin is not set
