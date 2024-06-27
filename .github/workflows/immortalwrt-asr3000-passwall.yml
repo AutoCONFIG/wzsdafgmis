@@ -56,7 +56,11 @@ jobs:
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
-          rm -rf feeds/luci/applications/luci-app-passwall
+          cd feeds/packages/net
+          rm -rf brook/ chinadns-ng/ dns2socks/ dns2tcp/ hysteria/ ipt2socks/ microsocks/ naiveproxy/ pdnsd-alt/ shadowsocks-rust/ shadowsocksr-libev/ simple-obfs/ tcping/ trojan-go/ trojan-plus/ trojan/ tuic-client/ v2ray-core/ v2ray-geodata/ v2ray-plugin/ xray-core/ xray-plugin/
+          cd ../../../
+          mv package/openwrt-passwall-packages/* feeds/packages/net/
+          rm -rf feeds/luci/applications/luci-app-passwall package/openwrt-passwall-packages
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
@@ -275,6 +279,7 @@ jobs:
           CONFIG_PACKAGE_kmod-lib-lzo=y
           CONFIG_PACKAGE_kmod-mediatek_hnat=y
           CONFIG_PACKAGE_kmod-mt_wifi=y
+          CONFIG_PACKAGE_kmod-netlink-diag=y
           CONFIG_PACKAGE_kmod-nf-flow=y
           CONFIG_PACKAGE_kmod-nls-base=y
           CONFIG_PACKAGE_kmod-nls-cp437=y
@@ -319,16 +324,8 @@ jobs:
           # CONFIG_PACKAGE_luci-app-filetransfer is not set
           CONFIG_PACKAGE_luci-app-mtwifi-cfg=y
           CONFIG_PACKAGE_luci-app-passwall=y
-          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Haproxy is not set
-          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client is not set
-          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client is not set
-          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server is not set
-          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client is not set
-          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Simple_Obfs is not set
-          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan_Plus is not set
-          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray is not set
-          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray_Plugin is not set
-          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray is not set
+          CONFIG_PACKAGE_luci-app-passwall_INCLUDE_SingBox=y
+          CONFIG_PACKAGE_luci-app-passwall_Iptables_Transparent_Proxy=y
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-ng is not set
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
           # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ChinaDNS_NG is not set
@@ -364,6 +361,7 @@ jobs:
           CONFIG_PACKAGE_openssl-util=y
           CONFIG_PACKAGE_regs=y
           CONFIG_PACKAGE_resolveip=y
+          CONFIG_PACKAGE_sing-box=y
           CONFIG_PACKAGE_swconfig=y
           CONFIG_PACKAGE_switch=y
           CONFIG_PACKAGE_tc-mod-iptables=y
@@ -371,7 +369,6 @@ jobs:
           CONFIG_PACKAGE_tcpdump=y
           CONFIG_PACKAGE_tcping=y
           CONFIG_PACKAGE_terminfo=y
-          CONFIG_PACKAGE_unzip=y
           CONFIG_PACKAGE_vlmcsd=y
           CONFIG_PACKAGE_wifi-dats=y
           CONFIG_PACKAGE_wireless-regdb=y
@@ -380,6 +377,13 @@ jobs:
           # CONFIG_PKG_CHECK_FORMAT_SECURITY is not set
           # CONFIG_PKG_FORTIFY_SOURCE_1 is not set
           CONFIG_PKG_FORTIFY_SOURCE_2=y
+          CONFIG_SING_BOX_WITH_CLASH_API=y
+          CONFIG_SING_BOX_WITH_DHCP=y
+          CONFIG_SING_BOX_WITH_ECH=y
+          CONFIG_SING_BOX_WITH_GVISOR=y
+          CONFIG_SING_BOX_WITH_QUIC=y
+          CONFIG_SING_BOX_WITH_UTLS=y
+          CONFIG_SING_BOX_WITH_WIREGUARD=y
           CONFIG_WARP_CHIPSET="mt7981"
           CONFIG_WARP_DBG_SUPPORT=y
           CONFIG_WARP_VERSION=2
@@ -397,6 +401,38 @@ jobs:
           # CONFIG_MTK_PRE_CAL_TRX_SET2_SUPPORT is not set
           # CONFIG_MTK_RLM_CAL_CACHE_SUPPORT is not set
           # CONFIG_MTK_SNIFFER_RADIOTAP_SUPPORT is not set
+          # CONFIG_PACKAGE_boost is not set
+          # CONFIG_PACKAGE_haproxy is not set
+          # CONFIG_PACKAGE_libcares is not set
+          # CONFIG_PACKAGE_libev is not set
+          # CONFIG_PACKAGE_libltdl is not set
+          # CONFIG_PACKAGE_liblua5.3 is not set
+          # CONFIG_PACKAGE_libmbedtls is not set
+          # CONFIG_PACKAGE_libpcre is not set
+          # CONFIG_PACKAGE_libreadline is not set
+          # CONFIG_PACKAGE_libsodium is not set
+          # CONFIG_PACKAGE_libudns is not set
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Haproxy is not set
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client is not set
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client is not set
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server is not set
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client is not set
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Simple_Obfs is not set
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan_Plus is not set
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray_Plugin is not set
+          # CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray is not set
+          # CONFIG_PACKAGE_shadowsocks-libev-config is not set
+          # CONFIG_PACKAGE_shadowsocks-libev-ss-local is not set
+          # CONFIG_PACKAGE_shadowsocks-libev-ss-redir is not set
+          # CONFIG_PACKAGE_shadowsocks-libev-ss-server is not set
+          # CONFIG_PACKAGE_shadowsocks-rust-sslocal is not set
+          # CONFIG_PACKAGE_shadowsocksr-libev-ssr-local is not set
+          # CONFIG_PACKAGE_shadowsocksr-libev-ssr-redir is not set
+          # CONFIG_PACKAGE_simple-obfs is not set
+          # CONFIG_PACKAGE_trojan-plus is not set
+          # CONFIG_PACKAGE_unzip is not set
+          # CONFIG_PACKAGE_v2ray-plugin is not set
+          # CONFIG_PACKAGE_xray-core is not set
           EOF
 
           #
