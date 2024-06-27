@@ -5,7 +5,7 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: immortalwrt-glibc-asr3000
+name: immortalwrt-asr3000-clash
 
 on:
   push:
@@ -85,7 +85,6 @@ jobs:
           # CONFIG_KERNEL_KEYS is not set
           # CONFIG_KERNEL_MEMCG_SWAP is not set
           CONFIG_KERNEL_NET_CLS_CGROUP=y
-          CONFIG_LIBC="glibc"
           CONFIG_LIBCURL_COOKIES=y
           CONFIG_LIBCURL_CRYPTO_AUTH=y
           CONFIG_LIBCURL_FILE=y
@@ -98,8 +97,6 @@ jobs:
           CONFIG_LIBCURL_THREADED_RESOLVER=y
           CONFIG_LIBCURL_TLS_SRP=y
           CONFIG_LIBCURL_UNIX_SOCKETS=y
-          CONFIG_LIBC_USE_GLIBC=y
-          # CONFIG_LIBC_USE_MUSL is not set
           CONFIG_MTK_ACK_CTS_TIMEOUT_SUPPORT=y
           CONFIG_MTK_AIR_MONITOR=y
           CONFIG_MTK_AMPDU_CONF_SUPPORT=y
@@ -391,10 +388,6 @@ jobs:
           # CONFIG_PKG_CHECK_FORMAT_SECURITY is not set
           # CONFIG_PKG_FORTIFY_SOURCE_1 is not set
           CONFIG_PKG_FORTIFY_SOURCE_2=y
-          CONFIG_STRIP_ARGS="--strip-all"
-          CONFIG_TARGET_SUFFIX="gnu"
-          CONFIG_USE_GLIBC=y
-          CONFIG_USE_STRIP=y
           CONFIG_WARP_CHIPSET="mt7981"
           CONFIG_WARP_DBG_SUPPORT=y
           CONFIG_WARP_VERSION=2
