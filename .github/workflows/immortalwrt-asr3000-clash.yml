@@ -201,6 +201,7 @@ jobs:
           CONFIG_PACKAGE_curl=y
           CONFIG_PACKAGE_datconf=y
           CONFIG_PACKAGE_datconf-lua=y
+          CONFIG_PACKAGE_ddns-go=y
           CONFIG_PACKAGE_ebtables=y
           CONFIG_PACKAGE_ethtool=y
           CONFIG_PACKAGE_htop=y
@@ -209,6 +210,7 @@ jobs:
           CONFIG_PACKAGE_ip6tables-extra=y
           CONFIG_PACKAGE_ipset=y
           CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
+          CONFIG_PACKAGE_iptables-mod-extra=y
           CONFIG_PACKAGE_iptables-mod-filter=y
           CONFIG_PACKAGE_iptables-mod-hashlimit=y
           CONFIG_PACKAGE_iptables-mod-iface=y
@@ -219,6 +221,7 @@ jobs:
           CONFIG_PACKAGE_iptables-mod-nat-extra=y
           CONFIG_PACKAGE_iptables-mod-proto=y
           CONFIG_PACKAGE_iptables-mod-tee=y
+          CONFIG_PACKAGE_iptables-mod-tproxy=y
           CONFIG_PACKAGE_iptables-mod-u32=y
           CONFIG_PACKAGE_iw=y
           CONFIG_PACKAGE_iwinfo=y
@@ -250,6 +253,7 @@ jobs:
           CONFIG_PACKAGE_kmod-ip6tables-extra=y
           CONFIG_PACKAGE_kmod-ipt-compat-xtables=y
           CONFIG_PACKAGE_kmod-ipt-conntrack-extra=y
+          CONFIG_PACKAGE_kmod-ipt-extra=y
           CONFIG_PACKAGE_kmod-ipt-filter=y
           CONFIG_PACKAGE_kmod-ipt-hashlimit=y
           CONFIG_PACKAGE_kmod-ipt-iface=y
@@ -262,6 +266,7 @@ jobs:
           CONFIG_PACKAGE_kmod-ipt-proto=y
           CONFIG_PACKAGE_kmod-ipt-raw6=y
           CONFIG_PACKAGE_kmod-ipt-tee=y
+          CONFIG_PACKAGE_kmod-ipt-tproxy=y
           CONFIG_PACKAGE_kmod-ipt-u32=y
           CONFIG_PACKAGE_kmod-lib-crc32c=y
           CONFIG_PACKAGE_kmod-lib-lzo=y
@@ -312,6 +317,7 @@ jobs:
           CONFIG_PACKAGE_libyaml=y
           CONFIG_PACKAGE_lua-cjson=y
           CONFIG_PACKAGE_luci-app-autoreboot=y
+          CONFIG_PACKAGE_luci-app-ddns-go=y
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_btrfs_progs is not set
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_lsblk is not set
           # CONFIG_PACKAGE_luci-app-filetransfer is not set
@@ -346,6 +352,7 @@ jobs:
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_Xray is not set
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_Xray_plugin is not set
           CONFIG_PACKAGE_luci-i18n-autoreboot-zh-cn=y
+          CONFIG_PACKAGE_luci-i18n-ddns-go-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-mtwifi-cfg-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-turboacc-mtk-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y
@@ -376,7 +383,6 @@ jobs:
           CONFIG_PACKAGE_switch=y
           CONFIG_PACKAGE_tc-mod-iptables=y
           CONFIG_PACKAGE_tc-tiny=y
-          CONFIG_PACKAGE_tcpdump=y
           CONFIG_PACKAGE_terminfo=y
           CONFIG_PACKAGE_unzip=y
           CONFIG_PACKAGE_vlmcsd=y
