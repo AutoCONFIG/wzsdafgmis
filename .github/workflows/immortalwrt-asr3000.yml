@@ -182,7 +182,6 @@ jobs:
           CONFIG_PACKAGE_datconf=y
           CONFIG_PACKAGE_datconf-lua=y
           CONFIG_PACKAGE_ebtables=y
-          CONFIG_PACKAGE_ethtool=y
           CONFIG_PACKAGE_htop=y
           CONFIG_PACKAGE_ip-bridge=y
           CONFIG_PACKAGE_ip6tables-extra=y
@@ -283,6 +282,7 @@ jobs:
           CONFIG_PACKAGE_libudev-zero=y
           CONFIG_PACKAGE_libuuid=y
           CONFIG_PACKAGE_lua-cjson=y
+          CONFIG_PACKAGE_luci-app-autoreboot=y
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_btrfs_progs is not set
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_lsblk is not set
           # CONFIG_PACKAGE_luci-app-filetransfer is not set
@@ -309,12 +309,17 @@ jobs:
           # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks_Simple_Obfs is not set
           # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Xray is not set
           CONFIG_PACKAGE_luci-app-turboacc-mtk=y
+          CONFIG_PACKAGE_luci-app-upnp=y
+          CONFIG_PACKAGE_luci-app-vlmcsd=y
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_ShadowsocksR_Libev_Server is not set
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_Trojan is not set
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_Xray is not set
           # CONFIG_PACKAGE_luci-app-vssr_INCLUDE_Xray_plugin is not set
+          CONFIG_PACKAGE_luci-i18n-autoreboot-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-mtwifi-cfg-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-turboacc-mtk-zh-cn=y
+          CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y
+          CONFIG_PACKAGE_luci-i18n-vlmcsd-zh-cn=y
           CONFIG_PACKAGE_mii_mgr=y
           CONFIG_PACKAGE_miniupnpd=y
           CONFIG_PACKAGE_mtkhqos_util=y
@@ -330,6 +335,7 @@ jobs:
           CONFIG_PACKAGE_tc-mod-iptables=y
           CONFIG_PACKAGE_tc-tiny=y
           CONFIG_PACKAGE_terminfo=y
+          CONFIG_PACKAGE_vlmcsd=y
           CONFIG_PACKAGE_wifi-dats=y
           CONFIG_PACKAGE_wireless-regdb=y
           CONFIG_PACKAGE_wireless-tools=y

@@ -182,7 +182,6 @@ jobs:
           CONFIG_PACKAGE_datconf=y
           CONFIG_PACKAGE_datconf-lua=y
           CONFIG_PACKAGE_ebtables=y
-          CONFIG_PACKAGE_ethtool=y
           CONFIG_PACKAGE_htop=y
           CONFIG_PACKAGE_ip-bridge=y
           CONFIG_PACKAGE_ip6tables-extra=y
