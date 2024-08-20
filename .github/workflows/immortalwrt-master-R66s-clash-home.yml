@@ -5,7 +5,7 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: immortalwrt-23.05-R66s-clash
+name: immortalwrt-master-R66s-clash-home
 
 on:
   push:
@@ -49,17 +49,10 @@ jobs:
       - name: Clone source
         run: |
           rm -rf .git/ .github/ *
-          git clone --depth=1 --branch=openwrt-23.05 https://github.com/immortalwrt/immortalwrt.git ./
-          git clone --depth=1 --branch=master https://github.com/immortalwrt/luci.git tmp/y-y/luci
-          git clone --depth=1 --branch=main https://github.com/AutoCONFIG/minieap-openwrt.git package/minieap-openwrt
-          git clone --depth=1 --branch=HustLion https://github.com/AutoCONFIG/mentohust-openwrt.git package/mentohust-openwrt
-          sed -i -e '134i\\' -e '134i\\tmentohust -k0 -u2013308126 -p232810 -n"$ifname" -a1 -d2 -b1' package/network/services/ppp/files/ppp.sh
+          git clone --depth=1 --branch=master https://github.com/immortalwrt/immortalwrt.git ./
 
       - name: Update feeds
         run: |
-          ./scripts/feeds update -a
-          mv tmp/y-y/luci/applications/luci-app-filebrowser-go/ feeds/luci/applications/ 
-          rm -rf feeds/packages/net/mentohust/ feeds/packages/net/minieap/ tmp/y-y/
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
@@ -72,8 +65,12 @@ jobs:
           CONFIG_TARGET_rockchip=y
           CONFIG_TARGET_rockchip_armv8=y
           CONFIG_TARGET_rockchip_armv8_DEVICE_lunzn_fastrhino-r66s=y
+          CONFIG_LUCI_LANG_zh_Hans=y
+          CONFIG_PACKAGE_autocore=y
           CONFIG_PACKAGE_kmod-tcp-bbr=y
+          CONFIG_PACKAGE_luci=y
           CONFIG_PACKAGE_luci-app-autoreboot=y
+          CONFIG_PACKAGE_luci-app-ddns-go=y
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_btrfs_progs is not set
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_lsblk is not set
           CONFIG_PACKAGE_luci-app-openclash=y
@@ -81,7 +78,6 @@ jobs:
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
           CONFIG_PACKAGE_luci-app-upnp=y
           CONFIG_PACKAGE_luci-app-vlmcsd=y
-          CONFIG_PACKAGE_mentohust=y
           CONFIG_TARGET_ROOTFS_PARTSIZE=1024
           EOF
 

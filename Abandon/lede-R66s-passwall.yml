@@ -87,7 +87,7 @@ jobs:
           # CONFIG_PACKAGE_luci-app-vsftpd is not set
           # CONFIG_PACKAGE_luci-app-wol is not set
           CONFIG_PACKAGE_mentohust=y
-          CONFIG_TARGET_ROOTFS_PARTSIZE=512
+          CONFIG_TARGET_ROOTFS_PARTSIZE=1024
           EOF
 
           #
