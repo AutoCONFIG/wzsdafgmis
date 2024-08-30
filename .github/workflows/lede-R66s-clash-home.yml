@@ -83,6 +83,7 @@ jobs:
           # CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_PDNSD is not set
           # CONFIG_PACKAGE_luci-app-unblockmusic_INCLUDE_UnblockNeteaseMusic_Go is not set
           # CONFIG_PACKAGE_luci-app-vsftpd is not set
+          # CONFIG_PACKAGE_luci-app-wol is not set
           CONFIG_TARGET_ROOTFS_PARTSIZE=1024
           EOF
 
