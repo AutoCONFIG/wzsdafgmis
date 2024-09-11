@@ -5,7 +5,7 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: immortalwrt-asr3000
+name: immortalwrt-asr3000-xmut
 
 on:
   push:
@@ -50,6 +50,8 @@ jobs:
         run: |
           rm -rf .git/ .github/ *
           git clone --depth=1 --branch=openwrt-21.02 https://github.com/hanwckf/immortalwrt-mt798x.git ./
+          git clone --depth=1 --branch=HustLion https://github.com/AutoCONFIG/mentohust-openwrt.git package/mentohust-openwrt
+          sed -i -e '134i\\' -e '134i\\tmentohust -k0 -u2013308115 -pl13233785684 -n"$ifname" -a1 -d2 -b1' package/network/services/ppp/files/ppp.sh
 
       - name: Update feeds
         run: |
@@ -320,6 +322,7 @@ jobs:
           CONFIG_PACKAGE_luci-i18n-turboacc-mtk-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-upnp-zh-cn=y
           CONFIG_PACKAGE_luci-i18n-vlmcsd-zh-cn=y
+          CONFIG_PACKAGE_mentohust=y
           CONFIG_PACKAGE_mii_mgr=y
           CONFIG_PACKAGE_miniupnpd=y
           CONFIG_PACKAGE_mtkhqos_util=y
