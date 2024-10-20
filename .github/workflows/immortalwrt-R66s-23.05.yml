@@ -65,9 +65,16 @@ jobs:
           mv "immortalwrt-$TAG_NAME"/* .
           rm -rf "immortalwrt-$TAG_NAME"
           rm latest_source.zip
+          git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
 
+      - name: Comment out first DEFAULT_PACKAGES
+        run: |
+          sed -i '0,/^DEFAULT_PACKAGES += $(DEFAULT_PACKAGES.tweak)$/s//# &/' include/target.mk
+        
       - name: Update feeds
         run: |
+          ./scripts/feeds update -a
+          rm -rf feeds/luci/applications/luci-app-openclash/
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
@@ -80,6 +87,9 @@ jobs:
           CONFIG_TARGET_rockchip=y
           CONFIG_TARGET_rockchip_armv8=y
           CONFIG_TARGET_rockchip_armv8_DEVICE_lunzn_fastrhino-r66s=y
+          CONFIG_LUCI_LANG_zh_Hans=y
+          CONFIG_PACKAGE_kmod-nf-nathelper=y
+          CONFIG_PACKAGE_kmod-nf-nathelper-extra=y
           CONFIG_PACKAGE_kmod-tcp-bbr=y
           CONFIG_PACKAGE_luci-app-ddns-go=y
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_btrfs_progs is not set
@@ -89,6 +99,7 @@ jobs:
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
           CONFIG_PACKAGE_luci-app-upnp=y
           CONFIG_PACKAGE_luci-app-vlmcsd=y
+          CONFIG_PACKAGE_luci-nginx=y
           CONFIG_TARGET_ROOTFS_PARTSIZE=1024
           EOF
 
