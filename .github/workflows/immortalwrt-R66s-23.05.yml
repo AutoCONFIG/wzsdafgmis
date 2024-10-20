@@ -59,10 +59,11 @@ jobs:
           LATEST_TAG=${{ steps.get_latest_tag.outputs.tag }}
           echo "Downloading $LATEST_TAG..."
           wget "https://github.com/immortalwrt/immortalwrt/archive/refs/tags/$LATEST_TAG.zip" -O latest_source.zip
-          echo "Extracting $LATEST_TAG..."
+          TAG_NAME=$(echo "$LATEST_TAG" | sed 's/^v//')
+          echo "Extracting version: $TAG_NAME"
           unzip -q latest_source.zip -d .
-          mv "immortalwrt-$LATEST_TAG"/* .
-          rm -rf "immortalwrt-$LATEST_TAG"
+          mv "immortalwrt-$TAG_NAME"/* .
+          rm -rf "immortalwrt-$TAG_NAME"
           rm latest_source.zip
 
       - name: Update feeds
