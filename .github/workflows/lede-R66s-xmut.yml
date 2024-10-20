@@ -5,7 +5,7 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: immortalwrt-master-R66s
+name: lede-R66s-xmut
 
 on:
   push:
@@ -36,7 +36,7 @@ jobs:
           sudo -E apt update
           sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
           sudo -E apt -y full-upgrade
-          sudo -E apt -y install build-essential git libncurses5-dev libpython3-dev python3-pyelftools swig
+          sudo -E apt -y install build-essential git libncurses5-dev libpython3-dev python2 python3-pyelftools swig
           sudo -E systemctl daemon-reload
           sudo -E apt -y autoremove --purge
           sudo -E apt autoclean
@@ -49,11 +49,13 @@ jobs:
       - name: Clone source
         run: |
           rm -rf .git/ .github/ *
-          git clone --depth=1 --branch=master https://github.com/immortalwrt/immortalwrt.git ./
+          git clone --depth=1 https://github.com/coolsnowwolf/lede.git ./
+          git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
 
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
+          rm -rf feeds/luci/applications/luci-app-openclash/
           ./scripts/feeds install -a
 
       - name: Generate configuration file
@@ -64,79 +66,21 @@ jobs:
           cat >> .config <<EOF
           CONFIG_TARGET_rockchip=y
           CONFIG_TARGET_rockchip_armv8=y
-          CONFIG_TARGET_rockchip_armv8_DEVICE_lunzn_fastrhino-r66s=y
-          CONFIG_LUCI_LANG_zh_Hans=y
-          CONFIG_NGINX_HTTP_QUIC=y
-          CONFIG_PACKAGE_autocore=y
-          CONFIG_PACKAGE_kmod-tcp-bbr=y
-          CONFIG_PACKAGE_luci-app-autoreboot=y
+          CONFIG_TARGET_rockchip_armv8_DEVICE_fastrhino_r66s=y
+          # CONFIG_PACKAGE_coremark is not set
+          # CONFIG_PACKAGE_ddns-scripts is not set
+          # CONFIG_PACKAGE_ddns-scripts_aliyun is not set
+          # CONFIG_PACKAGE_ddns-scripts_dnspod is not set
+          CONFIG_PACKAGE_ipv6helper=y
+          # CONFIG_PACKAGE_luci-app-accesscontrol is not set
+          # CONFIG_PACKAGE_luci-app-ddns is not set
           CONFIG_PACKAGE_luci-app-ddns-go=y
-          # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_btrfs_progs is not set
-          # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_lsblk is not set
+          # CONFIG_PACKAGE_luci-app-nlbwmon is not set
           CONFIG_PACKAGE_luci-app-openclash=y
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-ng is not set
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
-          CONFIG_PACKAGE_luci-app-upnp=y
-          CONFIG_PACKAGE_luci-app-vlmcsd=y
-          CONFIG_PACKAGE_luci-nginx=y
-          CONFIG_PACKAGE_mariadb-server=y
-          CONFIG_PACKAGE_mariadb-server-base=y
-          CONFIG_PACKAGE_php8=y
-          CONFIG_PACKAGE_php8-cgi=y
-          CONFIG_PACKAGE_php8-fastcgi=y
-          CONFIG_PACKAGE_php8-fpm=y
-          CONFIG_PACKAGE_php8-mod-bcmath=y
-          CONFIG_PACKAGE_php8-mod-calendar=y
-          CONFIG_PACKAGE_php8-mod-ctype=y
-          CONFIG_PACKAGE_php8-mod-curl=y
-          CONFIG_PACKAGE_php8-mod-dom=y
-          CONFIG_PACKAGE_php8-mod-exif=y
-          CONFIG_PACKAGE_php8-mod-fileinfo=y
-          CONFIG_PACKAGE_php8-mod-filter=y
-          CONFIG_PACKAGE_php8-mod-ftp=y
-          CONFIG_PACKAGE_php8-mod-gd=y
-          CONFIG_PACKAGE_php8-mod-gettext=y
-          CONFIG_PACKAGE_php8-mod-gmp=y
-          CONFIG_PACKAGE_php8-mod-iconv=y
-          CONFIG_PACKAGE_php8-mod-imap=y
-          CONFIG_PACKAGE_php8-mod-intl=y
-          CONFIG_PACKAGE_php8-mod-ldap=y
-          CONFIG_PACKAGE_php8-mod-mbstring=y
-          CONFIG_PACKAGE_php8-mod-mysqli=y
-          CONFIG_PACKAGE_php8-mod-mysqlnd=y
-          CONFIG_PACKAGE_php8-mod-opcache=y
-          CONFIG_PACKAGE_php8-mod-openssl=y
-          CONFIG_PACKAGE_php8-mod-pcntl=y
-          CONFIG_PACKAGE_php8-mod-pdo=y
-          CONFIG_PACKAGE_php8-mod-pdo-mysql=y
-          CONFIG_PACKAGE_php8-mod-pdo-pgsql=y
-          CONFIG_PACKAGE_php8-mod-pdo-sqlite=y
-          CONFIG_PACKAGE_php8-mod-pgsql=y
-          CONFIG_PACKAGE_php8-mod-phar=y
-          CONFIG_PACKAGE_php8-mod-session=y
-          CONFIG_PACKAGE_php8-mod-shmop=y
-          CONFIG_PACKAGE_php8-mod-simplexml=y
-          CONFIG_PACKAGE_php8-mod-snmp=y
-          CONFIG_PACKAGE_php8-mod-soap=y
-          CONFIG_PACKAGE_php8-mod-sockets=y
-          CONFIG_PACKAGE_php8-mod-sodium=y
-          CONFIG_PACKAGE_php8-mod-sqlite3=y
-          CONFIG_PACKAGE_php8-mod-sysvmsg=y
-          CONFIG_PACKAGE_php8-mod-sysvsem=y
-          CONFIG_PACKAGE_php8-mod-sysvshm=y
-          CONFIG_PACKAGE_php8-mod-tokenizer=y
-          CONFIG_PACKAGE_php8-mod-xml=y
-          CONFIG_PACKAGE_php8-mod-xmlreader=y
-          CONFIG_PACKAGE_php8-mod-xmlwriter=y
-          CONFIG_PACKAGE_php8-mod-zip=y
-          CONFIG_PACKAGE_php8-pecl-dio=y
-          CONFIG_PACKAGE_php8-pecl-http=y
-          CONFIG_PACKAGE_php8-pecl-imagick=y
-          CONFIG_PACKAGE_php8-pecl-krb5=y
-          CONFIG_PACKAGE_php8-pecl-mcrypt=y
-          CONFIG_PACKAGE_php8-pecl-raphf=y
-          CONFIG_PACKAGE_php8-pecl-redis=y
-          CONFIG_PACKAGE_redis-server=y
+          # CONFIG_PACKAGE_luci-app-vsftpd is not set
+          # CONFIG_PACKAGE_luci-app-wol is not set
           CONFIG_TARGET_ROOTFS_PARTSIZE=1024
           EOF
 
