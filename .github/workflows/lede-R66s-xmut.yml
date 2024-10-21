@@ -51,11 +51,13 @@ jobs:
           rm -rf .git/ .github/ *
           git clone --depth=1 https://github.com/coolsnowwolf/lede.git ./
           git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+          sed -i '0,/^DEVICE_TYPE?=router$/s/^DEVICE_TYPE?=router$/DEVICE_TYPE?=basic/' include/target.mk
 
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
           rm -rf feeds/luci/applications/luci-app-openclash/
+          ./scripts/feeds update -a
           ./scripts/feeds install -a
 
       - name: Generate configuration file
@@ -67,20 +69,23 @@ jobs:
           CONFIG_TARGET_rockchip=y
           CONFIG_TARGET_rockchip_armv8=y
           CONFIG_TARGET_rockchip_armv8_DEVICE_fastrhino_r66s=y
-          # CONFIG_PACKAGE_coremark is not set
-          # CONFIG_PACKAGE_ddns-scripts is not set
-          # CONFIG_PACKAGE_ddns-scripts_aliyun is not set
-          # CONFIG_PACKAGE_ddns-scripts_dnspod is not set
+          CONFIG_LUCI_LANG_zh_Hans=y
+          CONFIG_PACKAGE_firewall=y
           CONFIG_PACKAGE_ipv6helper=y
-          # CONFIG_PACKAGE_luci-app-accesscontrol is not set
-          # CONFIG_PACKAGE_luci-app-ddns is not set
+          CONFIG_PACKAGE_kmod-nf-nathelper=y
+          CONFIG_PACKAGE_kmod-nf-nathelper-extra=y
           CONFIG_PACKAGE_luci-app-ddns-go=y
-          # CONFIG_PACKAGE_luci-app-nlbwmon is not set
+          CONFIG_PACKAGE_luci-app-firewall=y
           CONFIG_PACKAGE_luci-app-openclash=y
+          CONFIG_PACKAGE_luci-app-opkg=y
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-ng is not set
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
-          # CONFIG_PACKAGE_luci-app-vsftpd is not set
-          # CONFIG_PACKAGE_luci-app-wol is not set
+          CONFIG_PACKAGE_luci-app-turboacc=y
+          CONFIG_PACKAGE_luci-app-upnp=y
+          CONFIG_PACKAGE_luci-app-vlmcsd=y
+          CONFIG_PACKAGE_luci-nginx=y
+          CONFIG_PACKAGE_ppp=y
+          CONFIG_PACKAGE_ppp-mod-pppoe=y
           CONFIG_TARGET_ROOTFS_PARTSIZE=1024
           EOF
 
