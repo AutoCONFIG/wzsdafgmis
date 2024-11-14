@@ -60,7 +60,7 @@ jobs:
           CA_TAG=$(echo "$CLASH_LATEST" | sed 's/^v//')
           echo "Extracting version: $CA_TAG"
           unzip -q openclash_latest.zip -d .
-          mv "OpenClash-$CA_TAG"/* package/OpenClash
+          mv "OpenClash-$CA_TAG"/* ./package/openclash
           rm -rf "OpenClash-$CA_TAG"
           rm  openclash_latest.zip
 
