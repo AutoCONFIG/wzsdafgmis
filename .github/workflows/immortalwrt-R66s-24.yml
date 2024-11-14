@@ -46,14 +46,10 @@ jobs:
       - name: Checkout OpenWrt
         uses: actions/checkout@v3
 
-      - name: Clone source
-        run: |
-          rm -rf .git/ .github/ *
-          git clone --depth=1 --branch=openwrt-24.10 https://github.com/immortalwrt/immortalwrt.git ./
-
       - name: Download and Extract Source Code
         run: |
           rm -rf .git/ .github/ *
+          git clone --depth=1 --branch=openwrt-24.10 https://github.com/immortalwrt/immortalwrt.git ./
           CLASH_LATEST=$(curl -s "https://api.github.com/repos/vernesong/OpenClash/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
           echo "Downloading $CLASH_LATEST "
           wget "https://github.com/vernesong/OpenClash/archive/refs/tags/$CLASH_LATEST.zip" -O openclash_latest.zip
@@ -62,8 +58,6 @@ jobs:
           unzip -q openclash_latest.zip -d .
           mv "OpenClash-$CA_TAG"/luci-app-openclash package/
           rm -rf "OpenClash-$CA_TAG" openclash_latest.zip
-          ls -a
-          ls ./scripts
 
       - name: Update feeds
         run: |
