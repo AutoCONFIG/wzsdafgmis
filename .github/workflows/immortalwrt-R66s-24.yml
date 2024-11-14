@@ -56,7 +56,7 @@ jobs:
           rm -rf .git/ .github/ *
           CLASH_LATEST=$(curl -s "https://api.github.com/repos/vernesong/OpenClash/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
           echo "Downloading $CLASH_LATEST "
-          wget "https://github.com/vernesong/OpenClash/archive/refs/tags/$LATEST_TAG.zip" -O openclash_latest.zip
+          wget "https://github.com/vernesong/OpenClash/archive/refs/tags/$CLASH_LATEST.zip" -O openclash_latest.zip
           CA_TAG=$(echo "$CLASH_LATEST" | sed 's/^v//')
           echo "Extracting version: $CA_TAG"
           unzip -q openclash_latest.zip -d .
