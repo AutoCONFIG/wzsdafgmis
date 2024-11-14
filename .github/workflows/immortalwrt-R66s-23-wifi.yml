@@ -61,8 +61,7 @@ jobs:
           unzip -q openclash_latest.zip -d .
           mv "immortalwrt-$OP_TAG"/* .
           mv "OpenClash-$CA_TAG"/luci-app-openclash package
-          rm -rf "immortalwrt-$OP_TAG" "OpenClash-$CA_TAG"
-          rm openwrt_latest.zip openclash_latest.zip
+          rm -rf "immortalwrt-$OP_TAG" "OpenClash-$CA_TAG" openwrt_latest.zip openclash_latest.zip
 
       - name: Comment out first DEFAULT_PACKAGES
         run: |
