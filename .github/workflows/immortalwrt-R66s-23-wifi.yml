@@ -5,7 +5,7 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: immortalwrt-R66s-master
+name: immortalwrt-R66s-23-wifi
 
 on:
   push:
@@ -46,12 +46,36 @@ jobs:
       - name: Checkout OpenWrt
         uses: actions/checkout@v3
 
-      - name: Clone source
+      - name: Get Latest
+        id: get_latest
+        run: |
+          OPENWRT_LATEST=$(curl -s "https://api.github.com/repos/immortalwrt/immortalwrt/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
+          CLASH_LATEST=$(curl -s "https://api.github.com/repos/vernesong/OpenClash/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
+          echo "::set-output name=op_tag::$OPENWRT_LATEST"
+          echo "::set-output name=ca_tag::$CLASH_LATEST"
+
+      - name: Download and Extract Source Code
         run: |
           rm -rf .git/ .github/ *
-          git clone --depth=1 --branch=master https://github.com/immortalwrt/immortalwrt.git ./
-          git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+          OPENWRT_LATEST=${{ steps.get_latest_tag.outputs.op_tag }}
+          CLASH_LATEST=${{ steps.get_latest_tag.outputs.ca_tag }}
+          echo "Downloading $OPENWRT_LATEST... and $CLASH_LATEST "
+          wget "https://github.com/immortalwrt/immortalwrt/archive/refs/tags/$OPENWRT_LATEST.zip" -O openwrt_latest.zip
+          wget "https://github.com/vernesong/OpenClash/archive/refs/tags/$LATEST_TAG.zip" -O openclash_latest.zip
+          OP_TAG=$(echo "$OPENWRT_LATEST" | sed 's/^v//')
+          CA_TAG=$(echo "$CLASH_LATEST" | sed 's/^v//')
+          echo "Extracting version: $OP_TAG and $CA_TAG"
+          unzip -q openwrt_latest.zip -d .
+          unzip -q openclash_latest.zip -d .
+          mv "immortalwrt-$OP_TAG"/* .
+          mv "OpenClash-$CA_TAG"/* package/OpenClash
+          rm -rf "immortalwrt-$OP_TAG" "OpenClash-$CA_TAG"
+          rm openwrt_latest.zip openclash_latest.zip
 
+      - name: Comment out first DEFAULT_PACKAGES
+        run: |
+          sed -i '0,/^DEFAULT_PACKAGES += $(DEFAULT_PACKAGES.tweak)$/s//# &/' include/target.mk
+        
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
@@ -69,9 +93,9 @@ jobs:
           CONFIG_TARGET_rockchip_armv8=y
           CONFIG_TARGET_rockchip_armv8_DEVICE_lunzn_fastrhino-r66s=y
           CONFIG_LUCI_LANG_zh_Hans=y
-          CONFIG_PACKAGE_autocore=y
           CONFIG_PACKAGE_kmod-nf-nathelper=y
           CONFIG_PACKAGE_kmod-nf-nathelper-extra=y
+          CONFIG_PACKAGE_kmod-rtw88-8822bu=y
           CONFIG_PACKAGE_kmod-tcp-bbr=y
           CONFIG_PACKAGE_luci-app-ddns-go=y
           # CONFIG_PACKAGE_luci-app-diskman_INCLUDE_btrfs_progs is not set
@@ -82,6 +106,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-upnp=y
           CONFIG_PACKAGE_luci-app-vlmcsd=y
           CONFIG_PACKAGE_luci-nginx=y
+          CONFIG_PACKAGE_wpad=y
           CONFIG_TARGET_ROOTFS_PARTSIZE=1024
           EOF
 

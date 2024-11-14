@@ -5,7 +5,7 @@
 #
 # Copyright (C) 2020 KFERMercer
 #
-name: immortalwrt-R66s-23.05
+name: immortalwrt-R66s-24
 
 on:
   push:
@@ -46,31 +46,30 @@ jobs:
       - name: Checkout OpenWrt
         uses: actions/checkout@v3
 
-      - name: Get Latest Tag
-        id: get_latest_tag
+      - name: Clone source
         run: |
-          LATEST_TAG=$(curl -s "https://api.github.com/repos/immortalwrt/immortalwrt/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
-          echo "Latest Tag: $LATEST_TAG"
-          echo "::set-output name=tag::$LATEST_TAG"
+          rm -rf .git/ .github/ *
+          git clone --depth=1 --branch=openwrt-24.10 https://github.com/immortalwrt/immortalwrt.git ./
+
+      - name: Get Latest
+        id: get_latest
+        run: |
+          CLASH_LATEST=$(curl -s "https://api.github.com/repos/vernesong/OpenClash/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
+          echo "::set-output name=ca_tag::$CLASH_LATEST"
 
       - name: Download and Extract Source Code
         run: |
           rm -rf .git/ .github/ *
-          LATEST_TAG=${{ steps.get_latest_tag.outputs.tag }}
-          echo "Downloading $LATEST_TAG..."
-          wget "https://github.com/immortalwrt/immortalwrt/archive/refs/tags/$LATEST_TAG.zip" -O latest_source.zip
-          TAG_NAME=$(echo "$LATEST_TAG" | sed 's/^v//')
-          echo "Extracting version: $TAG_NAME"
-          unzip -q latest_source.zip -d .
-          mv "immortalwrt-$TAG_NAME"/* .
-          rm -rf "immortalwrt-$TAG_NAME"
-          rm latest_source.zip
-          git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
+          CLASH_LATEST=${{ steps.get_latest_tag.outputs.ca_tag }}
+          echo "Downloading $CLASH_LATEST "
+          wget "https://github.com/vernesong/OpenClash/archive/refs/tags/$LATEST_TAG.zip" -O openclash_latest.zip
+          CA_TAG=$(echo "$CLASH_LATEST" | sed 's/^v//')
+          echo "Extracting version: $CA_TAG"
+          unzip -q openclash_latest.zip -d .
+          mv "OpenClash-$CA_TAG"/* package/OpenClash
+          rm -rf "OpenClash-$CA_TAG"
+          rm  openclash_latest.zip
 
-      - name: Comment out first DEFAULT_PACKAGES
-        run: |
-          sed -i '0,/^DEFAULT_PACKAGES += $(DEFAULT_PACKAGES.tweak)$/s//# &/' include/target.mk
-        
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
@@ -88,6 +87,7 @@ jobs:
           CONFIG_TARGET_rockchip_armv8=y
           CONFIG_TARGET_rockchip_armv8_DEVICE_lunzn_fastrhino-r66s=y
           CONFIG_LUCI_LANG_zh_Hans=y
+          CONFIG_PACKAGE_autocore=y
           CONFIG_PACKAGE_kmod-nf-nathelper=y
           CONFIG_PACKAGE_kmod-nf-nathelper-extra=y
           CONFIG_PACKAGE_kmod-tcp-bbr=y
