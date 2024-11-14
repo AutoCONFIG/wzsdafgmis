@@ -51,16 +51,10 @@ jobs:
           rm -rf .git/ .github/ *
           git clone --depth=1 --branch=openwrt-24.10 https://github.com/immortalwrt/immortalwrt.git ./
 
-      - name: Get Latest
-        id: get_latest
-        run: |
-          CLASH_LATEST=$(curl -s "https://api.github.com/repos/vernesong/OpenClash/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
-          echo "::set-output name=ca_tag::$CLASH_LATEST"
-
       - name: Download and Extract Source Code
         run: |
           rm -rf .git/ .github/ *
-          CLASH_LATEST=${{ steps.get_latest_tag.outputs.ca_tag }}
+          CLASH_LATEST=$(curl -s "https://api.github.com/repos/vernesong/OpenClash/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
           echo "Downloading $CLASH_LATEST "
           wget "https://github.com/vernesong/OpenClash/archive/refs/tags/$LATEST_TAG.zip" -O openclash_latest.zip
           CA_TAG=$(echo "$CLASH_LATEST" | sed 's/^v//')
