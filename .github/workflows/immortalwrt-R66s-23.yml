@@ -97,6 +97,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-upnp=y
           CONFIG_PACKAGE_luci-app-vlmcsd=y
           CONFIG_PACKAGE_luci-nginx=y
+          CONFIG_PACKAGE_openvpn=y
           CONFIG_TARGET_ROOTFS_PARTSIZE=1024
           EOF
 
