@@ -52,11 +52,16 @@ jobs:
           git clone --depth=1 https://github.com/coolsnowwolf/lede.git ./
           git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
           git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
+          git clone --depth=1 https://github.com/immortalwrt/luci.git package/immort-luci
+          mv package/immort-luci/applications/luci-app-openvpn package/
+          rm -rf package/immort-luci/
 
       - name: Update feeds
         run: |
           sed -i 's|#src-git luci https://github.com/coolsnowwolf/luci|src-git luci https://github.com/coolsnowwolf/luci|g' ./feeds.conf.default
           sed -i 's|src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05|#src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05|g' ./feeds.conf.default
+          ./scripts/feeds update -a
+          rm -rf feeds/luci/applications/luci-app-openvpn
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
@@ -80,6 +85,7 @@ jobs:
           # CONFIG_PACKAGE_luci-app-nlbwmon is not set
           CONFIG_PACKAGE_luci-app-openclash=y
           CONFIG_PACKAGE_luci-app-openvpn=y
+          CONFIG_PACKAGE_luci-app-openvpn-server=y
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-ng is not set
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
           # CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_OFFLOADING is not set
