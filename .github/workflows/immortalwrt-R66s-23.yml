@@ -49,7 +49,7 @@ jobs:
       - name: Download and Extract Source Code
         run: |
           rm -rf .git/ .github/ *
-          OPENWRT_LATEST=$(curl -s "https://api.github.com/repos/immortalwrt/immortalwrt/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
+          OPENWRT_LATEST=$(curl -s "https://api.github.com/repos/immortalwrt/immortalwrt/tags" | grep '"name": "v23' | head -n 1 | cut -d '"' -f 4)
           CLASH_LATEST=$(curl -s "https://api.github.com/repos/vernesong/OpenClash/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
           echo "Downloading $OPENWRT_LATEST... and $CLASH_LATEST "
           wget "https://github.com/immortalwrt/immortalwrt/archive/refs/tags/$OPENWRT_LATEST.zip" -O openwrt_latest.zip

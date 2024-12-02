@@ -49,15 +49,19 @@ jobs:
       - name: Download and Extract Source Code
         run: |
           rm -rf .git/ .github/ *
-          git clone --depth=1 --branch=openwrt-24.10 https://github.com/immortalwrt/immortalwrt.git ./
+          OPENWRT_LATEST=$(curl -s "https://api.github.com/repos/immortalwrt/immortalwrt/tags" | grep '"name": "v24' | head -n 1 | cut -d '"' -f 4)
           CLASH_LATEST=$(curl -s "https://api.github.com/repos/vernesong/OpenClash/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
-          echo "Downloading $CLASH_LATEST "
+          echo "Downloading $OPENWRT_LATEST... and $CLASH_LATEST "
+          wget "https://github.com/immortalwrt/immortalwrt/archive/refs/tags/$OPENWRT_LATEST.zip" -O openwrt_latest.zip
           wget "https://github.com/vernesong/OpenClash/archive/refs/tags/$CLASH_LATEST.zip" -O openclash_latest.zip
+          OP_TAG=$(echo "$OPENWRT_LATEST" | sed 's/^v//')
           CA_TAG=$(echo "$CLASH_LATEST" | sed 's/^v//')
-          echo "Extracting version: $CA_TAG"
+          echo "Extracting version: $OP_TAG and $CA_TAG"
+          unzip -q openwrt_latest.zip -d .
           unzip -q openclash_latest.zip -d .
+          mv "immortalwrt-$OP_TAG"/* .
           mv "OpenClash-$CA_TAG"/luci-app-openclash package/
-          rm -rf "OpenClash-$CA_TAG" openclash_latest.zip
+          rm -rf "immortalwrt-$OP_TAG" "OpenClash-$CA_TAG" openwrt_latest.zip openclash_latest.zip
 
       - name: Update feeds
         run: |
