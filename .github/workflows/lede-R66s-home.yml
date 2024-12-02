@@ -53,8 +53,6 @@ jobs:
           git clone --depth=1 https://github.com/vernesong/OpenClash.git package/OpenClash
           git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
           git clone --depth=1 https://github.com/immortalwrt/luci.git package/immort-luci
-          mv package/immort-luci/applications/luci-app-openvpn package/
-          rm -rf package/immort-luci/
 
       - name: Update feeds
         run: |
@@ -62,6 +60,8 @@ jobs:
           sed -i 's|src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05|#src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05|g' ./feeds.conf.default
           ./scripts/feeds update -a
           rm -rf feeds/luci/applications/luci-app-openvpn
+          mv package/immort-luci/applications/luci-app-openvpn feeds/luci/applications/
+          rm -rf package/immort-luci/
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
