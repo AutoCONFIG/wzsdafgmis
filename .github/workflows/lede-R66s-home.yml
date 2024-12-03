@@ -59,8 +59,9 @@ jobs:
           sed -i 's|#src-git luci https://github.com/coolsnowwolf/luci|src-git luci https://github.com/coolsnowwolf/luci|g' ./feeds.conf.default
           sed -i 's|src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05|#src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05|g' ./feeds.conf.default
           ./scripts/feeds update -a
-          rm -rf feeds/luci/applications/luci-app-openvpn
+          rm -rf feeds/luci/applications/luci-app-openvpn feeds/luci/applications/luci-app-openvpn-server
           mv package/immort-luci/applications/luci-app-openvpn feeds/luci/applications/
+          mv package/immort-luci/applications/luci-app-openvpn-server feeds/luci/applications/
           rm -rf package/immort-luci/
           ./scripts/feeds update -a
           ./scripts/feeds install -a
