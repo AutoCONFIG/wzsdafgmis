@@ -63,10 +63,6 @@ jobs:
           mv "OpenClash-$CA_TAG"/luci-app-openclash package/
           rm -rf "immortalwrt-$OP_TAG" "OpenClash-$CA_TAG" openwrt_latest.zip openclash_latest.zip
 
-      - name: Comment out first DEFAULT_PACKAGES
-        run: |
-          sed -i '0,/^DEFAULT_PACKAGES += $(DEFAULT_PACKAGES.tweak)$/s//# &/' include/target.mk
-
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
@@ -83,9 +79,6 @@ jobs:
           CONFIG_TARGET_rockchip=y
           CONFIG_TARGET_rockchip_armv8=y
           CONFIG_TARGET_rockchip_armv8_DEVICE_lunzn_fastrhino-r66s=y
-          CONFIG_LUCI_LANG_zh_Hans=y
-          CONFIG_PACKAGE_kmod-nf-nathelper=y
-          CONFIG_PACKAGE_kmod-nf-nathelper-extra=y
           CONFIG_PACKAGE_kmod-tcp-bbr=y
           CONFIG_PACKAGE_luci-app-acme=y
           CONFIG_PACKAGE_luci-app-ddns-go=y
@@ -98,7 +91,6 @@ jobs:
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
           CONFIG_PACKAGE_luci-app-upnp=y
           CONFIG_PACKAGE_luci-app-vlmcsd=y
-          CONFIG_PACKAGE_luci-nginx=y
           CONFIG_PACKAGE_luci-proto-wireguard=y
           CONFIG_PACKAGE_openvpn-openssl=y
           CONFIG_TARGET_ROOTFS_PARTSIZE=1024
