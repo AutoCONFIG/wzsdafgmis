@@ -1,8 +1,11 @@
 name: immortalwrt-R66s-23
 
-on: 
-  repository_dispatch:
-  workflow_dispatch:
+on:
+  push:
+    branches: 
+      - master
+  schedule:
+    - cron: 0 21 * * *
 
 jobs:
   build:
