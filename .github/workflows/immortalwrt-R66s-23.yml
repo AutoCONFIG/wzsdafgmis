@@ -1,40 +1,27 @@
-# 
-# <https://github.com/KFERMercer/OpenWrt-CI>
-#
-# Copyright (C) 2019 P3TERX
-#
-# Copyright (C) 2020 KFERMercer
-#
 name: immortalwrt-R66s-23
 
-on:
-  push:
-    branches: 
-      - master
-  schedule:
-    - cron: 0 21 * * *
-
-permissions:
-  contents: read
+on: 
+  repository_dispatch:
+  workflow_dispatch:
 
 jobs:
-
-  build_openwrt:
-
-    name: Build OpenWrt Firmware
-
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Space cleanup and Initialization environment
+      - name: Checkout
+        uses: actions/checkout@master
+      
+      - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
+          set +e
           docker rmi `docker images -q`
-          sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+          sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android /opt/ghc
           sudo -E apt-mark hold grub-efi-amd64-signed
           sudo -E apt update
-          sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
+          sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* hhvm* llvm* firefox* google* dotnet* aspnetcore* powershell* openjdk* adoptopenjdk* mysql* php* mongodb* moby* snap*
           sudo -E apt -y full-upgrade
           sudo -E apt -y install build-essential git libncurses5-dev libpython3-dev python3-pyelftools swig
           sudo -E systemctl daemon-reload
@@ -42,9 +29,6 @@ jobs:
           sudo -E apt autoclean
           sudo -E apt clean
           sudo -E timedatectl set-timezone "Asia/Shanghai"
-
-      - name: Checkout OpenWrt
-        uses: actions/checkout@v3
 
       - name: Download and Extract Source Code
         run: |
@@ -106,17 +90,9 @@ jobs:
       - name: Download packages
         run: make download -j16
 
-      - name: Compile firmware
+      - name: Build firmware
         run: |
-          make -j$(nproc) || make -j1 V=s
-          echo "======================="
-          echo "Space usage:"
-          echo "======================="
-          df -h
-          echo "======================="
-          du -h --max-depth=1 ./ --exclude=build_dir --exclude=bin
-          du -h --max-depth=1 ./build_dir
-          du -h --max-depth=1 ./bin
+          make -j$(nproc)
 
       - name: Prepare artifact
         run: |
@@ -127,19 +103,19 @@ jobs:
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
 
       - name: Upload buildinfo
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@master
         with:
-          name: OpenWrt_buildinfo
+          name: immortalwrt_buildinfo
           path: ./artifact/buildinfo/
 
       - name: Upload package
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@master
         with:
-          name: OpenWrt_package
+          name: immortalwrt_package
           path: ./artifact/package/
 
       - name: Upload firmware
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@master
         with:
-          name: OpenWrt_firmware
+          name: immortalwrt_firmware
           path: ./bin/targets/
