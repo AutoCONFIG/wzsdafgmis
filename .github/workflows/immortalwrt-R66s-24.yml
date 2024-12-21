@@ -17,10 +17,9 @@ jobs:
       
       - name: Set up Ubuntu repositories to default US mirror
         run: |
-          # 备份原始 sources.list
+          sudo rm -rf /etc/apt/apt-mirrors.txt
           sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
 
-          # 清空 /etc/apt/sources.list 文件并添加美国的官方镜像源
           sudo bash -c 'echo "deb http://archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse" > /etc/apt/sources.list'
           sudo bash -c 'echo "deb-src http://archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse" >> /etc/apt/sources.list'
           sudo bash -c 'echo "deb http://archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse" >> /etc/apt/sources.list'
