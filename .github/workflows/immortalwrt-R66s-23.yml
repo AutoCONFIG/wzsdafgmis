@@ -14,7 +14,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
-      
+
+      - name: check apt source
+        run: |
+          cat /etc/apt/sources.list
+          cat /etc/apt/sources.list.d/*
+          sudo -E apt update
+
       - name: Initialization environment
         env:
           DEBIAN_FRONTEND: noninteractive
