@@ -17,7 +17,6 @@ jobs:
       
       - name: Set up Ubuntu repositories to default US mirror
         run: |
-          sudo rm -rf /etc/apt/apt-mirrors.txt
           sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
 
           sudo bash -c 'echo "deb http://archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse" > /etc/apt/sources.list'
@@ -33,6 +32,7 @@ jobs:
         run: |
           cat /etc/apt/sources.list
           cat /etc/apt/sources.list.d/*
+          cat /etc/apt/apt-mirrors.txt
           sudo -E apt update
 
       - name: Initialization environment
