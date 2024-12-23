@@ -1,4 +1,4 @@
-name: immortalwrt-R66s-23
+name: openclash-R66s-23-wifi
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@master
-
+      
       - name: Set up Ubuntu repositories to default US mirror
         run: |
           sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
@@ -61,7 +61,7 @@ jobs:
           mv "immortalwrt-$OP_TAG"/* .
           mv "OpenClash-$CA_TAG"/luci-app-openclash package/
           rm -rf "immortalwrt-$OP_TAG" "OpenClash-$CA_TAG" openwrt_latest.zip openclash_latest.zip
-
+        
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
@@ -78,6 +78,7 @@ jobs:
           CONFIG_TARGET_rockchip=y
           CONFIG_TARGET_rockchip_armv8=y
           CONFIG_TARGET_rockchip_armv8_DEVICE_lunzn_fastrhino-r66s=y
+          CONFIG_PACKAGE_kmod-rtw88-8822bu=y
           CONFIG_PACKAGE_kmod-tcp-bbr=y
           CONFIG_PACKAGE_luci-app-acme=y
           CONFIG_PACKAGE_luci-app-ddns-go=y
@@ -92,6 +93,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-vlmcsd=y
           CONFIG_PACKAGE_luci-proto-wireguard=y
           CONFIG_PACKAGE_openvpn-openssl=y
+          CONFIG_PACKAGE_wpad=y
           CONFIG_TARGET_ROOTFS_PARTSIZE=1024
           EOF
 
@@ -104,11 +106,11 @@ jobs:
 
       - name: Download packages
         run: make download -j16
-
+  
       - name: Build firmware
         run: |
           make -j$(nproc)
-
+  
       - name: Prepare artifact
         run: |
           mkdir -p ./artifact/package
@@ -116,19 +118,19 @@ jobs:
           rm -rf $(find ./bin/targets/ -type d -name "packages")
           cp -rf $(find ./bin/packages/ -type f -name "*.ipk") ./artifact/package/
           cp -rf $(find ./bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
-
+  
       - name: Upload buildinfo
         uses: actions/upload-artifact@master
         with:
           name: immortalwrt_buildinfo
           path: ./artifact/buildinfo/
-
+  
       - name: Upload package
         uses: actions/upload-artifact@master
         with:
           name: immortalwrt_package
           path: ./artifact/package/
-
+  
       - name: Upload firmware
         uses: actions/upload-artifact@master
         with:

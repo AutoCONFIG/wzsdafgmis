@@ -1,4 +1,4 @@
-name: immortalwrt-R66s-23-wifi
+name: openclash-R66s-24-wifi
 
 on:
   push:
@@ -48,7 +48,7 @@ jobs:
       - name: Download and Extract Source Code
         run: |
           rm -rf .git/ .github/ *
-          OPENWRT_LATEST=$(curl -s "https://api.github.com/repos/immortalwrt/immortalwrt/tags" | grep '"name": "v23' | head -n 1 | cut -d '"' -f 4)
+          OPENWRT_LATEST=$(curl -s "https://api.github.com/repos/immortalwrt/immortalwrt/tags" | grep '"name": "v24' | head -n 1 | cut -d '"' -f 4)
           CLASH_LATEST=$(curl -s "https://api.github.com/repos/vernesong/OpenClash/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
           echo "Downloading $OPENWRT_LATEST... and $CLASH_LATEST "
           wget "https://github.com/immortalwrt/immortalwrt/archive/refs/tags/$OPENWRT_LATEST.zip" -O openwrt_latest.zip
@@ -61,7 +61,7 @@ jobs:
           mv "immortalwrt-$OP_TAG"/* .
           mv "OpenClash-$CA_TAG"/luci-app-openclash package/
           rm -rf "immortalwrt-$OP_TAG" "OpenClash-$CA_TAG" openwrt_latest.zip openclash_latest.zip
-        
+
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
