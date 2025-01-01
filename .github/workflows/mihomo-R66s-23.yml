@@ -50,12 +50,10 @@ jobs:
           rm -rf .git/ .github/ *
           OPENWRT_LATEST=$(curl -s "https://api.github.com/repos/immortalwrt/immortalwrt/tags" | grep '"name": "v24' | head -n 1 | cut -d '"' -f 4)
           MIHOMO_LATEST=$(curl -s "https://api.github.com/repos/morytyann/OpenWrt-mihomo/tags" | grep 'name' | head -n 1 | cut -d '"' -f 4)
-          echo "Downloading $OPENWRT_LATEST... and $MIHOMO_LATEST "
           wget "https://github.com/immortalwrt/immortalwrt/archive/refs/tags/$OPENWRT_LATEST.zip" -O openwrt_latest.zip
           wget "https://github.com/morytyann/OpenWrt-mihomo/archive/refs/tags/$MIHOMO_LATEST.zip" -O mihomo_latest.zip
           OP_TAG=$(echo "$OPENWRT_LATEST" | sed 's/^v//')
           MH_TAG=$(echo "$MIHOMO_LATEST" | sed 's/^v//')
-          echo "Extracting version: $OP_TAG and $MH_TAG"
           unzip -q openwrt_latest.zip -d .
           unzip -q mihomo_latest.zip -d .
           mv "immortalwrt-$OP_TAG"/* .
@@ -65,8 +63,6 @@ jobs:
 
       - name: Update feeds
         run: |
-          ./scripts/feeds update -a
-          rm -rf feeds/luci/applications/luci-app-openclash/
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
