@@ -77,11 +77,15 @@ jobs:
           CONFIG_PACKAGE_luci-app-ksmbd=y
           CONFIG_PACKAGE_luci-app-openclash=y
           CONFIG_PACKAGE_luci-app-openvpn=y
+          CONFIG_PACKAGE_luci-app-qbittorrent=y
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-ng is not set
           # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
+          CONFIG_PACKAGE_luci-app-syncthing=y
           CONFIG_PACKAGE_luci-app-upnp=y
           CONFIG_PACKAGE_luci-app-vlmcsd=y
           CONFIG_PACKAGE_openvpn-openssl=y
+          CONFIG_PACKAGE_rsync=y
+          CONFIG_PACKAGE_rustdesk-server=y
           CONFIG_TARGET_ROOTFS_PARTSIZE=1024
           EOF
 
