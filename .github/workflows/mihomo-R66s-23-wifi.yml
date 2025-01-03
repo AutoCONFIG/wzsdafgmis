@@ -22,11 +22,6 @@ jobs:
             override: true
             components: rustfmt, clippy
 
-      - name: Run cargo check
-        uses: actions-rs/cargo@master
-        with:
-          command: check
-
       - name: Set up Ubuntu repositories
         run: |
           sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
